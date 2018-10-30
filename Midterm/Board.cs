@@ -58,7 +58,7 @@ namespace Midterm
 
         //sending dimensions from UserInput class
         //////////////////////////////////sending dimensions from Menu class
-        public static void BoardDimensions(int xy)
+        public static void BoardDimensions(int xy)/////////////////STEP 1 - MAKE BOARD
         {
             int row = xy;
             int column = xy;
@@ -80,7 +80,7 @@ namespace Midterm
             UserInput.Playstate(gameBoard);
         }
 
-        private void InitializeBoard()
+        private void InitializeBoard()////////////////////////////////STEP 2 - INITIALIZE BOARD ARRAYS
         {
             hiddenBoard = new int[rows, columns];
             displayBoard = new State[rows, columns];
@@ -88,8 +88,8 @@ namespace Midterm
             {
                 for (int j = 0; j < columns; j++)
                 {
-                    hiddenBoard[i, j] = 0;
-                    displayBoard[i, j] = State.hidden;
+                    hiddenBoard[i, j] = 0;//initialize default to 0
+                    displayBoard[i, j] = State.hidden;//initialize state to hidden
                 }
             }
             MakeAllMines();
@@ -103,18 +103,18 @@ namespace Midterm
 
             Console.Write("    ");
 
-            for (; yAxisCounter < columns; yAxisCounter++)
+            for (; yAxisCounter < columns; yAxisCounter++)//displays column numbers
             {
-                Console.Write("{0, -3}", yAxisCounter + 1);
+                Console.Write("{0, -3}", yAxisCounter + 1);//display each number with spacing of 3 to the left
             }
             Console.WriteLine();
-            for (int i = 0; i < rows; i++)
+            for (int i = 0; i < rows; i++)//display row numbers and tiles
             {
-                Console.Write("{0, -4}", xAxisCounter + 1);
+                Console.Write("{0, -4}", xAxisCounter + 1);//display each number with spacing of 4 to the left
                 for (int j = 0; j < columns; j++)
                 {
                     //yAxisCounter++;
-                    switch (displayBoard[i, j])
+                    switch (displayBoard[i, j])//display entire row
                     {
                         case State.clicked:
                             displayChar = (char)(hiddenBoard[i, j] + '0');
@@ -188,7 +188,7 @@ namespace Midterm
         }
 
         // this method would work to reveal if the tile is a flag, qmark, number, bomb
-        public bool RevealTile(int row, int column)
+        public bool RevealTile(int row, int column)//if click is selected
         {
             if (displayBoard[row, column] == State.hidden)
             {
@@ -219,7 +219,7 @@ namespace Midterm
             return false;
         }
 
-        private void MakeAllMines()
+        private void MakeAllMines()////////////////////////////STEP 3 - MAKE MINES
         {
             Random r = new Random();
             // trys to create a mine and adds one to i each time a mine is made.
@@ -228,14 +228,14 @@ namespace Midterm
             numMines = i;
         }
 
-        public bool MakesMine(int row, int column)
+        public bool MakesMine(int row, int column)//validate mines
         {
             int mine = 9;
             if (hiddenBoard[row, column] != mine)
             {
                 hiddenBoard[row, column] = mine;
 
-                for (int i = row - 1; i <= row + 1; i++)
+                for (int i = row - 1; i <= row + 1; i++)//if mine, set 
                 {
                     for (int j = column - 1; j <= column + 1; j++)
                     {
@@ -257,9 +257,9 @@ namespace Midterm
             return false;
         }
 
-        public bool WinsOrLoses()
+        public bool WinsOrLoses()//return true if game over
         {
-            if (isMine == true)
+            if (isMine == true)//if inputCord[i] = 9 : true
             {
                 Console.WriteLine("BOOOOOOOOM!");
                 Console.WriteLine("Oh no, you hit a bomb!\n");
@@ -293,32 +293,32 @@ namespace Midterm
             return false;
         }
 
-        public void IsFlagged(int row, int column, ConsoleKey inputKey)
+        public void IsFlagged(int row, int column, ConsoleKey inputKey)//inputs from PlayState(), sets flags & Qmarks
         {
-            if (displayBoard[row, column] == State.clicked)
+            if (displayBoard[row, column] == State.clicked)//if already set, display so
             {
                 Console.WriteLine("This space is already clicked!");
             }
-            else if (inputKey == ConsoleKey.F)
+            else if (inputKey == ConsoleKey.F)//////////////////////////checks if input is flag
             {
-                if (displayBoard[row, column] == State.flag)
+                if (displayBoard[row, column] == State.flag)//if already flagged
                 {
-                    displayBoard[row, column] = State.hidden;
+                    displayBoard[row, column] = State.hidden;//hide
                 }
                 else
                 {
-                    displayBoard[row, column] = State.flag;
+                    displayBoard[row, column] = State.flag;//if not yet flagged, flag
                 }
             }
-            else if (inputKey == ConsoleKey.Q)
+            else if (inputKey == ConsoleKey.Q)///////////////////////checks if input is question
             {
-                if (displayBoard[row, column] == State.qmark)
+                if (displayBoard[row, column] == State.qmark)//if already marked
                 {
-                    displayBoard[row, column] = State.hidden;
+                    displayBoard[row, column] = State.hidden;//hide
                 }
                 else
                 {
-                    displayBoard[row, column] = State.qmark;
+                    displayBoard[row, column] = State.qmark;//if not yet marked, mark
                 }
             }
         }

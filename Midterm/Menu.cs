@@ -95,7 +95,7 @@ namespace Midterm
                 }
                 else
                 {
-                    int.TryParse(Console.ReadLine(), out entry);
+                    int.TryParse(Console.ReadLine(), out entry);//if menu count is larger than 10 it will require enter
                 }
 
                 if (entry > 0 && entry <= menu.Count)

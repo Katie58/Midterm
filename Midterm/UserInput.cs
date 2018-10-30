@@ -11,8 +11,8 @@ namespace Midterm
         {
 
             Menu.Header();
-            Tuple<int, int> inputCord;
-            while (!game.WinsOrLoses())
+            Tuple<int, int> inputCord;//inputCord<rows, columns>
+            while (!game.WinsOrLoses())//while (game is not over)
             {
                 game.DisplayBoard();
                 try
@@ -23,12 +23,12 @@ namespace Midterm
                     {
                         case ConsoleKey.F:
                             Menu.Header();
-                            game.IsFlagged(inputCord.Item1, inputCord.Item2, ConsoleKey.F);
+                            game.IsFlagged(inputCord.Item1, inputCord.Item2, ConsoleKey.F);//if flag, send coords to IsFlagged
                             break;
                         case ConsoleKey.C:
 
                             Menu.Header();
-                            if (!game.RevealTile(inputCord.Item1, inputCord.Item2))
+                            if (!game.RevealTile(inputCord.Item1, inputCord.Item2))//validates
                             {
                                 Console.WriteLine("Cannot Click");
                             }
@@ -36,7 +36,7 @@ namespace Midterm
                         case ConsoleKey.Q:
 
                             Menu.Header();
-                            game.IsFlagged(inputCord.Item1, inputCord.Item2, ConsoleKey.Q);
+                            game.IsFlagged(inputCord.Item1, inputCord.Item2, ConsoleKey.Q);//if questioned, send cords to IsFlagged
                             break;
                         default:
                             Menu.Header();
